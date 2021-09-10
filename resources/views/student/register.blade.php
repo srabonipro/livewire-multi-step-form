@@ -9,7 +9,15 @@
     @livewireStyles
 </head>
 <body>
-        <h1>Student Register</h1>
+
+    <div class="container">
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-6 offset-md-3">
+                <h1>Student Register</h1> <hr>
+                @livewire('student-register')
+            </div>
+        </div>
+    </div>
 
     @livewireScripts
 </body>
