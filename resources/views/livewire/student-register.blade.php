@@ -1,6 +1,7 @@
 <div>
     <form wire:submit.prevent="register">
         {{-- STEP 1 --}}
+        @if ($currentStep == 1)
         <div class="step-one">
             <div class="card">
                 <div class="card-header bg-secondary text-white">STEP 1/4 - Personal Details</div>
@@ -53,8 +54,10 @@
                 </div>
             </div>
         </div>
+        @endif
 
         {{-- STEP 2 --}}
+        @if ($currentStep == 2)
         <div class="step-two">
             <div class="card">
                 <div class="card-header bg-secondary text-white">STEP 2/4 - Address & Contacts</div>
@@ -102,11 +105,13 @@
                 </div>
             </div>
         </div>
+        @endif
 
         {{-- STEP 3 --}}
+        @if ($currentStep == 3)
         <div class="step-three">
             <div class="card">
-                <div class="card-header bg-secondary test-white">STEP 3/4 - Frameword experience</div>
+                <div class="card-header bg-secondary text-white">STEP 3/4 - Frameword experience</div>
                 <div class="card-body">
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur dignissimos vitae quidem velit voluptatem, eius corporis dolorum rem pariatur neque labore aperiam obcaecati vel iste consectetur enim repudiandae laudantium ipsum!
                     <div class="frameworks d-flex flex-column align-items-left mt-2">
@@ -130,8 +135,10 @@
                 </div>
             </div>
         </div>
+        @endif
 
         {{-- STEP 4 --}}
+        @if ($currentStep == 4)
         <div class="step-four">
             <div class="card">
                 <div class="card-header bg-secondary text-white">STEP 4/4 - Attachments</div>
@@ -152,12 +159,24 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <div class="action-buttons d-flex justify-content-between bg-white pt-2 pb-2">
+            @if ($currentStep == 1)
             <div></div>
-            <button type="button" class="btn btn-md btn-secondary">Back</button>
-            <button type="button" class="btn btn-md btn-success">Next</button>
+            @endif
+
+            @if ($currentStep == 2 || $currentStep == 3 || $currentStep == 4)
+            <button type="button" class="btn btn-md btn-secondary" wire:click="decreaseStep()">Back</button>
+            @endif
+
+            @if ($currentStep == 1 || $currentStep == 2 || $currentStep == 3)
+            <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+            @endif
+
+            @if ($currentStep == 4)
             <button type="submit" class="btn btn-md btn-primary">Submit</button>
+            @endif
         </div>
     </form>
 </div>
