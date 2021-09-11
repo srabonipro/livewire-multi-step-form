@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -74,6 +75,27 @@ class StudentRegister extends Component
                 'terms' => 'accepted'
             ]);
         }
-        dd('Now, you can submit form');
+
+        $cv_name = 'CV_' . $this->cv->getClientOriginalName();
+        $upload_cv = $this->cv->storeAs('students_cvs', $cv_name);
+
+        if ($upload_cv) {
+            $values = array(
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'gender' => $this->gender,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'country' => $this->country,
+                'city' => $this->city,
+                'frameworks' => json_encode($this->frameworks),
+                'description' => $this->description,
+                'cv' => $cv_name,
+            );
+
+            Student::insert($values);
+            $this->reset();
+            $this->currentStep = 1;
+        }
     }
 }
